@@ -339,24 +339,12 @@ public class SurveyUpdater {
     private static float averageAzimuths(float[] azimuths) {
         // Azimuth values jump at the 360/0 boundary, so we must be careful to ensure that
         // values {359, 1} average to 0 rather than the incorrect value 180
+        float offsetAzimuth = 540 - azimuths[0];
         float sum = 0.0f;
-        float min = Leg.MAX_AZIMUTH, max = Leg.MIN_AZIMUTH;
         for (float azimuth : azimuths) {
-            if (azimuth < min) {
-                min = azimuth;
-            }
-            if (azimuth > max) {
-                max = azimuth;
-            }
+            sum += (azimuth + offsetAzimuth) % 360;
         }
-        boolean splitOverZero = max - min > 180;
-        float[] correctedAzms = new float[azimuths.length];
-        for (int i = 0; i < azimuths.length; i++) {
-            correctedAzms[i] =
-                    (splitOverZero && azimuths[i] < 180) ? azimuths[i] + 360: azimuths[i];
-            sum += correctedAzms[i];
-        }
-        return (sum / correctedAzms.length) % 360;
+        return (sum / azimuths.length - 180 + azimuths[0]) % 360;
     }
 
 
