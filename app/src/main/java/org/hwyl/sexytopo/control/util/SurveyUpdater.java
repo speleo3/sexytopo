@@ -269,7 +269,7 @@ public class SurveyUpdater {
     }
 
 
-    private static boolean areLegsAboutTheSame(List<Leg> legs) {
+    public static boolean areLegsAboutTheSame(List<Leg> legs) {
 
         for (Leg leg : legs) { // full legs must be unique by definition
             if (leg.hasDestination()) {
