@@ -98,4 +98,27 @@ public class SurveyUpdaterTest {
         )));
     }
 
+    @Test
+    public void testAverageAzimuths() {
+        // trivial cases
+        Assert.assertEquals(0f, SurveyUpdater.averageAzimuths(new float[]{0f}), 1e-4f);
+        Assert.assertEquals(0f, SurveyUpdater.averageAzimuths(new float[]{0f, 0f, 0f}), 1e-4f);
+        // close small values
+        Assert.assertEquals(2.5f, SurveyUpdater.averageAzimuths(new float[]{3f, 1f, 4f, 2f}), 1e-4f);
+        // crossing 360
+        Assert.assertEquals(1.0f, SurveyUpdater.averageAzimuths(new float[]{359f, 3f}), 1e-4f);
+        Assert.assertEquals(358f, SurveyUpdater.averageAzimuths(new float[]{350f, 1f, 3f}), 1e-4f);
+        // near 180
+        Assert.assertEquals(180f, SurveyUpdater.averageAzimuths(new float[]{179f, 181f}), 1e-4f);
+        // values far apart
+        Assert.assertEquals(0f, SurveyUpdater.averageAzimuths(new float[]{89f, 271f}), 1e-4f);
+        Assert.assertEquals(180.0f, SurveyUpdater.averageAzimuths(new float[]{91f, 269f}), 1e-4f);
+        Assert.assertEquals(90.0f, SurveyUpdater.averageAzimuths(new float[]{179f, 1f}), 1e-4f);
+        Assert.assertEquals(90.0f, SurveyUpdater.averageAzimuths(new float[]{1f, 179f}), 1e-4f);
+        Assert.assertEquals(270.0f, SurveyUpdater.averageAzimuths(new float[]{359f, 181f}), 1e-4f);
+        Assert.assertEquals(280.0f, SurveyUpdater.averageAzimuths(new float[]{191f, 9f}), 1e-4f);
+        Assert.assertEquals(280.0f, SurveyUpdater.averageAzimuths(new float[]{9f, 191f}), 1e-4f);
+        Assert.assertEquals(101.0f, SurveyUpdater.averageAzimuths(new float[]{11f, 191f}), 1e-4f);
+    }
+
 }

@@ -335,7 +335,7 @@ public class SurveyUpdater {
 
 
     /** Average some azimuth values together, even if they span the 360/0 boundary */
-    private static float averageAzimuths(float[] azimuths) {
+    public static float averageAzimuths(float[] azimuths) {
         // Azimuth values jump at the 360/0 boundary, so we must be careful to ensure that
         // values {359, 1} average to 0 rather than the incorrect value 180
         float sum = 0.0f;
