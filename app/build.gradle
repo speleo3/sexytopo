@@ -8,11 +8,11 @@ android {
 
     defaultConfig {
         applicationId "org.hwyl.sexytopo"
-        minSdkVersion 21
+        minSdkVersion 23
         compileSdk 33
         targetSdkVersion 33
         versionCode 72
-        versionName "1.7.0"
+        versionName "1.7.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
